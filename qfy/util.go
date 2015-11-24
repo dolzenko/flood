@@ -147,7 +147,7 @@ type converter interface {
 type lookup struct {
 	results   []int
 	converter converter
-	ruleCache map[uint64]bool
+	ruleCache map[string]map[uint64]bool
 	factCache map[string]*intset.Set
 }
 
@@ -155,15 +155,17 @@ func newLookup(cvt converter) *lookup {
 	return &lookup{
 		results:   make([]int, 0, 100),
 		converter: cvt,
-		ruleCache: make(map[uint64]bool, 1000),
+		ruleCache: make(map[string]map[uint64]bool, 1000),
 		factCache: make(map[string]*intset.Set, 20),
 	}
 }
 
 func (l *lookup) Clear() {
 	l.results = l.results[:0]
-	for k, _ := range l.ruleCache {
-		delete(l.ruleCache, k)
+	for _, v := range l.ruleCache {
+		for k, _ := range v {
+			delete(v, k)
+		}
 	}
 	for k, _ := range l.factCache {
 		delete(l.factCache, k)

@@ -84,7 +84,7 @@ func (bf *benchFact) GetQualifiable(key FactKey) interface{} {
 	case reflect.String:
 		return benchDict.Get(field.String())
 	case reflect.Int:
-		return int64(field.Int())
+		return field.Int()
 	case reflect.Slice:
 		switch field.Type() {
 		case benchStringSliceType:

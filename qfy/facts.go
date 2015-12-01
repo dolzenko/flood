@@ -1,7 +1,7 @@
 package qfy
 
 // Fact is an interface of a fact that may be passed to a qualifier. Each fact must implement
-// a GetQualifiable(FatKey) method which receives a key and must return either a bool, an int64
+// a GetQualifiable(FactKey) method which receives a key and must return either a bool, an int64
 // a float64 or an []int64 slice.
 type Fact interface {
 	GetQualifiable(FactKey) interface{}
